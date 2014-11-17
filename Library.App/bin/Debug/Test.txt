@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ArrayOfPrintedMatter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PrintedMatter xsi:type="Book">
+    <id>100000</id>
+    <name>Book0</name>
+    <imprintDate>1970</imprintDate>
+    <author>Unknown0</author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Magazine">
+    <id>100001</id>
+    <name>Magazine1</name>
+    <imprintDate>1971</imprintDate>
+    <numberOfEdition>1</numberOfEdition>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <id>100002</id>
+    <name>Book2</name>
+    <imprintDate>1972</imprintDate>
+    <author>Unknown2</author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Magazine">
+    <id>100003</id>
+    <name>Magazine3</name>
+    <imprintDate>1973</imprintDate>
+    <numberOfEdition>3</numberOfEdition>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <id>100004</id>
+    <name>Book4</name>
+    <imprintDate>1974</imprintDate>
+    <author>Unknown4</author>
+  </PrintedMatter>
+</ArrayOfPrintedMatter>

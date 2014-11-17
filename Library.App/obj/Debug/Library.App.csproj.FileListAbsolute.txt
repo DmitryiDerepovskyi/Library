@@ -1,0 +1,16 @@
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\bin\Debug\Library.App.exe.config
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\bin\Debug\Library.App.exe
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\bin\Debug\Library.App.pdb
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\bin\Debug\Library.Core.dll
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\bin\Debug\Library.Core.pdb
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\obj\Debug\Library.App.csprojResolveAssemblyReference.cache
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\obj\Debug\Library.App.exe
+c:\Users\student\documents\visual studio 2012\Projects\Library.Core\Library.App\obj\Debug\Library.App.pdb
+C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.App.exe.config
+C:\Users\Dmitry\Desktop\Library\Library.App\obj\Debug\Library.App.exe
+C:\Users\Dmitry\Desktop\Library\Library.App\obj\Debug\Library.App.pdb
+C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.App.exe
+C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.App.pdb
+C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.Core.dll
+C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.Core.pdb
+C:\Users\Dmitry\Desktop\Library\Library.App\obj\Debug\Library.App.csprojResolveAssemblyReference.cache

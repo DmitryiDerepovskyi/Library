@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ArrayOfPrintedMatter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PrintedMatter xsi:type="Book">
+    <id>100000</id>
+    <name>CLR via C#</name>
+    <imprintDate>2014</imprintDate>
+    <author>Richter</author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <id>100001</id>
+    <name>C# 5.0</name>
+    <imprintDate>2014</imprintDate>
+    <author>Troelson</author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Magazine">
+    <id>100002</id>
+    <name>Maxsim</name>
+    <imprintDate>2014</imprintDate>
+    <numberOfEdition>200</numberOfEdition>
+  </PrintedMatter>
+</ArrayOfPrintedMatter>
