@@ -56,7 +56,7 @@ namespace Library.Core
         /// <param name="count"></param>
         public void Remove(int count)
         {
-            if (count > 0)
+            if (count >= 0)
             {
                 if (_count > 0)
                 {
@@ -64,11 +64,16 @@ namespace Library.Core
                     {
                         _array[i - 1] = _array[i];
                     }
+                    _count--;
+                    _array[_count] = null;
                 }
-                _count--;
+                else
+                    throw new ArgumentOutOfRangeException();
             }
         }
-
+        /// <summary>
+        /// Очистка листа
+        /// </summary>
         public void Clear()
         {
             _count = 0;
@@ -92,8 +97,6 @@ namespace Library.Core
         /// <returns></returns>
         public T GetElement(int count)
         {
-            if (count > _count)
-                throw new ArgumentException(); 
             return _array[count];
         }
         /// <summary>
@@ -115,23 +118,17 @@ namespace Library.Core
       
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            int current = 0;
-
-            while (current != _count)
+            for (int current = 0; current != _count; current++)
             {
                 yield return _array[current];
-                current++;
             }
         }
-        
+
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            int current = 0;
-
-            while (current != _count)
+            for (int current = 0; current != _count; current++)
             {
                 yield return _array[current];
-                current++;
             }
         }
     }

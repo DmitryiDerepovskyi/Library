@@ -14,3 +14,11 @@ C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.App.pdb
 C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.Core.dll
 C:\Users\Dmitry\Desktop\Library\Library.App\bin\Debug\Library.Core.pdb
 C:\Users\Dmitry\Desktop\Library\Library.App\obj\Debug\Library.App.csprojResolveAssemblyReference.cache
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.App.exe.config
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\obj\Debug\Library.App.exe
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\obj\Debug\Library.App.pdb
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.App.exe
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.App.pdb
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.Core.dll
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.Core.pdb
+C:\Users\Dmitry\Desktop\projects\Library\Library.App\obj\Debug\Library.App.csprojResolveAssemblyReference.cache

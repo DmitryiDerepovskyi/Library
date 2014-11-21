@@ -7,3 +7,8 @@ C:\Users\Dmitry\Desktop\Library\Library.Core\obj\Debug\Library.Core.dll
 C:\Users\Dmitry\Desktop\Library\Library.Core\bin\Debug\Library.Core.dll
 C:\Users\Dmitry\Desktop\Library\Library.Core\bin\Debug\Library.Core.pdb
 C:\Users\Dmitry\Desktop\Library\Library.Core\obj\Debug\Library.Core.pdb
+C:\Users\Dmitry\Desktop\projects\Library\Library.Core\bin\Debug\Library.Core.dll
+C:\Users\Dmitry\Desktop\projects\Library\Library.Core\bin\Debug\Library.Core.pdb
+C:\Users\Dmitry\Desktop\projects\Library\Library.Core\obj\Debug\Library.Core.csprojResolveAssemblyReference.cache
+C:\Users\Dmitry\Desktop\projects\Library\Library.Core\obj\Debug\Library.Core.dll
+C:\Users\Dmitry\Desktop\projects\Library\Library.Core\obj\Debug\Library.Core.pdb

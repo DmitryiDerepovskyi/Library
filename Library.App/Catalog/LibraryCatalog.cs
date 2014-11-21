@@ -96,28 +96,24 @@ namespace Library.App.Catalog
             {
                 Console.WriteLine(e.Message);
             }
+            PrintedMatter item = null;
             try
             {
-                Console.WriteLine(list.GetElement(number).ToString());
-                Console.WriteLine("Change this element?(y/n)");
-                char choose = Console.ReadKey(true).KeyChar;
-                if (Char.ToLower(choose) == 'y')
-                {
-                    PrintedMatter item = list.GetElement(number);
-                    list.Update(number, Change(item));
-                }
-                else
-                    return;
+                item = list.GetElement(number);
             }
-            catch (ArgumentException)
+            catch (IndexOutOfRangeException)
             {
                 Console.WriteLine("Element doesn't exist");
             }
-            catch (NullReferenceException e)
+            Console.WriteLine(item.ToString());
+            Console.WriteLine("Change this element?(y/n)");
+            char choose = Console.ReadKey(true).KeyChar;
+            if (Char.ToLower(choose) == 'y')
             {
-                Console.WriteLine(e.Message);
+                list.Update(number, Change(item));
             }
-
+            else
+                return;
         }
 
         PrintedMatter Change(PrintedMatter item)
@@ -215,9 +211,9 @@ namespace Library.App.Catalog
                 if (Char.ToLower(choose) == 'y')
                     list.Remove(number);
             }
-            catch (ArgumentException)
+            catch (IndexOutOfRangeException e)
             {
-                Console.WriteLine("Element doesn't exist");
+                Console.WriteLine(e.Message);
             }
             catch (NullReferenceException e)
             {

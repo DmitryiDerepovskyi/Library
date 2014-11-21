@@ -22,6 +22,9 @@ namespace Library.App.Menu
         public bool visible;
         public int top;
         public int left;
+        /// <summary>
+        /// Отрисовка указателя
+        /// </summary>
         public void Print()
         {
             SetCursor(top, (left - _lenght));
@@ -35,6 +38,11 @@ namespace Library.App.Menu
             else
                 return cursor = new Cursor();
         }
+        /// <summary>
+        /// Усиановить курсор в указаную позицию 
+        /// </summary>
+        /// <param name="top"></param>
+        /// <param name="left"></param>
         public void SetCursor(int top, int left)
         {
             this.top = top;
