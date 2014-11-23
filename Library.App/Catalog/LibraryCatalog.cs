@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Core;
 using Library.App;
+using System.Text.RegularExpressions;
 namespace Library.App.Catalog
 {
     public class LibraryCatalog
@@ -43,20 +44,9 @@ namespace Library.App.Catalog
         /// </summary>
         void AddBook()
         {
-            Console.Write("Input name: ");
-            string name = Console.ReadLine();
-            Console.Write("Input imprint date: ");
-            int imprintDate = 0;
-            try
-            {
-                imprintDate = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            Console.Write("Input author: ");
-            string author = Console.ReadLine();
+            string name = InputName();
+            int imprintDate = InputImprintDate();
+            string author = InputAuthor();
             PrintedMatter newItem = new Book(name, imprintDate, author);
             _list.AddAsync(newItem);
             SaveAsync(serial);
@@ -67,27 +57,9 @@ namespace Library.App.Catalog
         /// </summary>
         void AddMagazine()
         {
-            Console.Write("Input name: ");
-            string name = Console.ReadLine();
-            Console.Write("Input imprint date: ");
-            int imprintDate = 0, numberOfEdition = 0;
-            try
-            {
-                imprintDate = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            Console.Write("Input number of edition: ");
-            try
-            {
-                numberOfEdition = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            string name = InputName();
+            int imprintDate = InputImprintDate();
+            int numberOfEdition = InputNumberOfEdition();
             PrintedMatter newItem = new Magazine(name, imprintDate, numberOfEdition);
             _list.AddAsync(newItem);
             SaveAsync(serial);
@@ -162,35 +134,45 @@ namespace Library.App.Catalog
 
         string InputName()
         {
-            Console.Write("Input name: ");
-            return Console.ReadLine();
+            string name = String.Empty;
+            string pattern = @"\w";
+            Regex regex = new Regex(pattern);
+            bool isWrongName = true;
+            while (isWrongName)
+            {
+                Console.Write("Input name: ");
+                name = Console.ReadLine();
+                isWrongName = !regex.IsMatch(name, 0);
+                if(isWrongName)
+                    Console.WriteLine("Incorrect data!");
+            }
+            return name;
         }
         int InputImprintDate()
         {
-            Console.Write("Input imprint date: ");
             int imprintDate = 0;
-            try
+            bool isNumber = false;
+            while (!isNumber)
             {
-                imprintDate = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                Console.Write("Input imprint date: ");
+                isNumber = Int32.TryParse(Console.ReadLine(), out imprintDate);
+                if(!isNumber)
+                    Console.WriteLine("Incorrect data!");
+            } 
             return imprintDate;
         }
         int InputNumberOfEdition()
         {
-            Console.Write("Input number of edition: ");
             int numberOfEdition = 0;
-            try
+            bool isNumber = false;
+            while (!isNumber)
             {
-                numberOfEdition = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                Console.Write("Input number of edition: ");
+                isNumber = Int32.TryParse(Console.ReadLine(), out numberOfEdition);
+                isNumber = isNumber && (numberOfEdition < 1);
+                if (!isNumber)
+                    Console.WriteLine("Incorrect data!");
+            } 
             return numberOfEdition;
         }
         string InputAuthor()
@@ -203,17 +185,16 @@ namespace Library.App.Catalog
         /// </summary>
         void RemoveItem()
         {
-            Console.Write("Input number of element: ");
             int number = 0;
-            try
+            bool isNumber = false;
+            while (!isNumber)
             {
-                number = Convert.ToInt32(Console.ReadLine()) - 1;
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-                return;
-            }
+                Console.Write("Input number of element: ");
+                isNumber = Int32.TryParse(Console.ReadLine(), out number);
+                isNumber = isNumber && (number < 1);
+                if (!isNumber)
+                    Console.WriteLine("Incorrect data!");
+            } 
             try
             {
                 Console.WriteLine(_list.GetElement(number).ToString());
@@ -225,10 +206,6 @@ namespace Library.App.Catalog
                     Console.WriteLine("Element deleted");
                     SaveAsync(serial);
                 }
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                Console.WriteLine(e.Message);
             }
             catch (NullReferenceException e)
             {
@@ -242,6 +219,7 @@ namespace Library.App.Catalog
         /// </summary>
         void SaveList()
         {
+            _fileNameCatalog = InputFileName();
             try
             {
                 Serealized(serial);
@@ -251,6 +229,26 @@ namespace Library.App.Catalog
             {
                 Console.WriteLine("Can't save");
             }
+        }
+
+        private string InputFileName()
+        {
+            string name = String.Empty;
+            string pattern = @"\w[^.//\\?,';:^&*()-=+#]";
+            Regex regex = new Regex(pattern);
+            bool isWrongName = true;
+            while (isWrongName)
+            {
+                Console.Write("Input name catalog: ");
+                name = Console.ReadLine() + ".txt";
+                if (name.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) == -1)
+                {
+                    isWrongName = false;
+                }
+                if (isWrongName)
+                    Console.WriteLine("Incorrect data!");
+            }
+            return name;
         }
         void Serealized(ISerializedAsync<PrintedMatter> serialized)
         {
@@ -286,16 +284,15 @@ namespace Library.App.Catalog
         /// </summary>
         void SearchById()
         {
-            Console.Write("Input id of element: ");
             int id = 0;
-            try
+            bool isNumber = false;
+            while (!isNumber)
             {
-                id = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                Console.Write("Input id of element: ");
+                isNumber = Int32.TryParse(Console.ReadLine(), out id);
+                if (!isNumber)
+                    Console.WriteLine("Incorrect data!");
+            } 
             Task<int> taskIndex = _list.IndexOfAsync(id);
             if (taskIndex.Result == -1)
                 Console.WriteLine("Element of the id {0} does not exist", id);
