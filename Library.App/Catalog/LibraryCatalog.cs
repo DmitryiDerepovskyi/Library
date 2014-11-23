@@ -234,21 +234,18 @@ namespace Library.App.Catalog
         private string InputFileName()
         {
             string name = String.Empty;
-            string pattern = @"\w[^.//\\?,';:^&*()-=+#]";
+            string pattern = @"\w";
             Regex regex = new Regex(pattern);
             bool isWrongName = true;
             while (isWrongName)
             {
                 Console.Write("Input name catalog: ");
-                name = Console.ReadLine() + ".txt";
-                if (name.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) == -1)
-                {
-                    isWrongName = false;
-                }
+                name = Console.ReadLine();
+                isWrongName = !(name.IndexOfAny(System.IO.Path.GetInvalidFileNameChars()) == -1 && regex.IsMatch(name,0));
                 if (isWrongName)
                     Console.WriteLine("Incorrect data!");
             }
-            return name;
+            return name + ".txt";
         }
         void Serealized(ISerializedAsync<PrintedMatter> serialized)
         {
