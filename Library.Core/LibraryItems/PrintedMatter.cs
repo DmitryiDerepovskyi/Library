@@ -11,64 +11,23 @@ namespace Library.Core
     {
         protected PrintedMatter()
         {
-            _id = _countId;
-            _countId++;
+            Id = ID.GetId();
         }
         protected PrintedMatter(string name, int imprintDate)
         {
-            _id = _countId;
-            _countId++;
-            this._name = name;
-            this._imprintDate = imprintDate;
+            Id = ID.GetId();
+            Name = name;
+            ImprintDate = imprintDate;
         }
       
-        static int _countId = 100000;
-        protected int _id;
-        protected string _name;
-        protected int _imprintDate;
-        public int countId
-        {
-            get
-            {
-                return _countId;
-            }
-        }
-        public int id { 
-            get 
-            { 
-                return _id; 
-            }
-            set
-            {
-                _id = value;
-            }
-        }
-        public string name {
-            get 
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
-        public int imprintDate
-        {
-            get
-            {
-                return _imprintDate;
-            }
-            set
-            {
-                _imprintDate = value;
-            }
-        }
+        public int Id{get;set;}
+        public string Name { get; set; }
+        public int ImprintDate { get; set; }
 
         public override string ToString()
         {
             return String.Format("Id: {0}\nName: {1}\nImprint date: {2}\n",
-                _id, _name, _imprintDate);
+                Id, Name, ImprintDate);
         }
     }
 }

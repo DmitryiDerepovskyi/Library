@@ -9,32 +9,20 @@ namespace Library.Core
     {
         public Book():base()
         {
-            _author = String.Empty;
+            Author = String.Empty;
         }
 
         public Book(string name, int imprintDate, string author)
             : base(name, imprintDate)
         {
-            this._author = author;
+            Author = author;
         }
 
-        private string _author;
-
-        public string author
-        {
-            get 
-            {
-                return _author;
-            }
-            set 
-            {
-                _author = value;
-            }
-        }
+        public string Author { get; set; }
 
         public override string ToString()
         {
-            return base.ToString() + String.Format("Author: {0}\n", _author);
+            return base.ToString() + String.Format("Author: {0}\n", Author);
         }
     }
 }

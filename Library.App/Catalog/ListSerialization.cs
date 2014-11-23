@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,22 +10,26 @@ using System.Reflection;
 
 namespace Library.App.Catalog
 {
-    class ListSerialization
+    class ListSerialization : ISerializedAsync<PrintedMatter>
     {
         /// <summary>
         /// Сериализация коллекции в заданный файл
         /// </summary>
         /// <param name="items"></param>
         /// <param name="path"></param>
-        public static void DoSerialization(MyListArray<PrintedMatter> items, string path)
+        public async Task SerializedAsync(MyListArray<PrintedMatter> items, string path)
+        {
+            await Task.Run(() => Serial(items, path));
+        }
+        void Serial(MyListArray<PrintedMatter> items, string path)
         {
             XmlSerializer xmlS;
             using (FileStream fs = File.Create(path))
             {
                 Type type = typeof(PrintedMatter);
                 var types = Assembly.GetAssembly(type).GetTypes().Where(w => w.IsSubclassOf(type)).ToArray();
-               xmlS = new XmlSerializer(typeof(MyListArray<PrintedMatter>), types);
-               xmlS.Serialize(fs, items);
+                xmlS = new XmlSerializer(typeof(MyListArray<PrintedMatter>), types);
+                xmlS.Serialize(fs, items);
             }
         }
         /// <summary>
@@ -33,7 +37,7 @@ namespace Library.App.Catalog
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static MyListArray<PrintedMatter> DoDeserialization(string path)
+        public MyListArray<PrintedMatter> Deserialized(string path)
         {
             XmlSerializer xmlS;
             MyListArray<PrintedMatter> items;
@@ -45,7 +49,7 @@ namespace Library.App.Catalog
             {
                 Type type = typeof(PrintedMatter);
                 var types = Assembly.GetAssembly(type).GetTypes().Where(w => w.IsSubclassOf(type)).ToArray();
-                xmlS = new XmlSerializer(typeof(MyListArray<PrintedMatter>),types);
+                xmlS = new XmlSerializer(typeof(MyListArray<PrintedMatter>), types);
                 items = xmlS.Deserialize(fs) as MyListArray<PrintedMatter>;
             }
             return items;

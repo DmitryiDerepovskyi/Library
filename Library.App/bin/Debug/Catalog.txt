@@ -1,21 +1,57 @@
 <?xml version="1.0"?>
 <ArrayOfPrintedMatter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PrintedMatter xsi:type="Book">
-    <id>100000</id>
-    <name>CLR via C#</name>
-    <imprintDate>2014</imprintDate>
-    <author>Richter</author>
+    <Id>100003</Id>
+    <Name>book1</Name>
+    <ImprintDate>1902</ImprintDate>
+    <Author>lermontov</Author>
   </PrintedMatter>
   <PrintedMatter xsi:type="Book">
-    <id>100001</id>
-    <name>C# 5.0</name>
-    <imprintDate>2014</imprintDate>
-    <author>Troelson</author>
+    <Id>100004</Id>
+    <Name>War and peace</Name>
+    <ImprintDate>1848</ImprintDate>
+    <Author>Tolstoy</Author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <Id>100005</Id>
+    <Name>CLR via C#</Name>
+    <ImprintDate>2013</ImprintDate>
+    <Author>Richter</Author>
   </PrintedMatter>
   <PrintedMatter xsi:type="Magazine">
-    <id>100002</id>
-    <name>Maxsim</name>
-    <imprintDate>2014</imprintDate>
-    <numberOfEdition>200</numberOfEdition>
+    <Id>100006</Id>
+    <Name>Maxsim</Name>
+    <ImprintDate>2013</ImprintDate>
+    <NumberOfEdition>200</NumberOfEdition>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Magazine">
+    <Id>100007</Id>
+    <Name>ComputerGame</Name>
+    <ImprintDate>2014</ImprintDate>
+    <NumberOfEdition>56</NumberOfEdition>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <Id>100005</Id>
+    <Name>wer</Name>
+    <ImprintDate>123</ImprintDate>
+    <Author>qwer</Author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <Id>100014</Id>
+    <Name>Kobzar</Name>
+    <ImprintDate>1840</ImprintDate>
+    <Author>Shevchenko</Author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <Id>100015</Id>
+    <Name>The Da Vinci Code</Name>
+    <ImprintDate>2003</ImprintDate>
+    <Author>Brown</Author>
+  </PrintedMatter>
+  <PrintedMatter xsi:type="Book">
+    <Id>100016</Id>
+    <Name>book1</Name>
+    <ImprintDate>1992</ImprintDate>
+    <Author>un</Author>
   </PrintedMatter>
 </ArrayOfPrintedMatter>

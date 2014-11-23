@@ -22,3 +22,11 @@ C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.App.pdb
 C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.Core.dll
 C:\Users\Dmitry\Desktop\projects\Library\Library.App\bin\Debug\Library.Core.pdb
 C:\Users\Dmitry\Desktop\projects\Library\Library.App\obj\Debug\Library.App.csprojResolveAssemblyReference.cache
+C:\Users\student\Desktop\Library\Library.App\bin\Debug\Library.App.exe.config
+C:\Users\student\Desktop\Library\Library.App\obj\Debug\Library.App.exe
+C:\Users\student\Desktop\Library\Library.App\obj\Debug\Library.App.pdb
+C:\Users\student\Desktop\Library\Library.App\obj\Debug\Library.App.csprojResolveAssemblyReference.cache
+C:\Users\student\Desktop\Library\Library.App\bin\Debug\Library.App.exe
+C:\Users\student\Desktop\Library\Library.App\bin\Debug\Library.App.pdb
+C:\Users\student\Desktop\Library\Library.App\bin\Debug\Library.Core.dll
+C:\Users\student\Desktop\Library\Library.App\bin\Debug\Library.Core.pdb

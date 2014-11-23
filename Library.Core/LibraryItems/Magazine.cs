@@ -10,32 +10,21 @@ namespace Library.Core
     {
         public Magazine():base()
         {
-            _numberOfEdition = 0;
+            NumberOfEdition = 0;
         }
 
         public Magazine(string name, int imprintDate, int numberOfEdition)
             : base(name, imprintDate)
         {
-            this._numberOfEdition = numberOfEdition;
+            NumberOfEdition = numberOfEdition;
         }
     
-        private int _numberOfEdition;
 
-        public int numberOfEdition
-        {
-            get 
-            {
-                return _numberOfEdition;
-            }
-            set
-            {
-                _numberOfEdition = value;
-            }
-         }
+        public int NumberOfEdition { get; set; }
 
         public override string ToString()
         {
-            return base.ToString() + String.Format("Number of edition: {0}\n",_numberOfEdition);
+            return base.ToString() + String.Format("Number of edition: {0}\n",NumberOfEdition);
         }
     }
 }

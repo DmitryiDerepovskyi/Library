@@ -8,22 +8,19 @@ using System.Xml.Serialization;
 namespace Library.Core
 {
     [Serializable]
-    public class MyListArray<T> : IEnumerable<T> where T : PrintedMatter
+    public class MyListArray<T> : IEnumerable<T>  where T : PrintedMatter
     {
         private int _maxLength;
         private int _count;
         private T[] _array;
-
         public MyListArray()
         {
-            _count = 0;
             _maxLength = 10;
             _array = new T[_maxLength];
         }
 
         public MyListArray(int count)
         {
-            _count = 0;
             _maxLength = count;
             _array = new T[_maxLength];
         }
@@ -38,6 +35,10 @@ namespace Library.Core
         /// Добавляет элемент в конец очереди
         /// </summary>
         /// <param name="element"></param>
+        public async Task AddAsync(T element)
+        {
+            await Task.Run(() => Add(element));
+        }
         public void Add(T element)
         {
             if (_count >= _maxLength)
@@ -54,6 +55,10 @@ namespace Library.Core
         /// Удаляет элемент под указанным номером 
         /// </summary>
         /// <param name="count"></param>
+        public async Task RemoveAsync(int count)
+        {
+            await Task.Run(() => Remove(count));
+        }
         public void Remove(int count)
         {
             if (count >= 0)
@@ -104,11 +109,16 @@ namespace Library.Core
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int IndexOf(int id)
+        public async Task<int> IndexOfAsync(int count)
+        {
+            int index = await Task.Run(() => IndexOf(count));
+            return index;
+        }
+        int IndexOf(int id)
         {
             int index = -1;
             for (int i = 0; i < _count; i++)
-                if (_array[i].id == id)
+                if (_array[i].Id == id)
                 {
                     index = i;
                     break;

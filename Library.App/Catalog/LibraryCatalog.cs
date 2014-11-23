@@ -11,9 +11,9 @@ namespace Library.App.Catalog
     {
         public LibraryCatalog()
         {
-            list = new MyListArray<PrintedMatter>();
             _fileNameCatalog = "Catalog.txt";
-            operationCatalog = new Dictionary<string, FuncCatalog>
+            _fm = new FileManager();
+            _operationCatalog = new Dictionary<string, Action>
             {
                 {"Book", this.AddBook},
                 {"Magazine", this.AddMagazine},
@@ -24,14 +24,19 @@ namespace Library.App.Catalog
                 {"Load",this.LoadList},
                 {"Print",this.PrintList},
             };
+            SaveAsync = this.Serealized;
         }
+        public ISerializedAsync<PrintedMatter> serial;
         // каталог
-        MyListArray<PrintedMatter> list;
+        MyListArray<PrintedMatter> _list;
         // функции для работы с каталогом
-        public Dictionary<string, FuncCatalog> operationCatalog;
-        public delegate void FuncCatalog();
+        public Dictionary<string, Action> _operationCatalog;
+        FileManager _fm;
         // имя файла, где хранится каталог
         string _fileNameCatalog;
+
+        private delegate void SaveCatalog(ISerializedAsync<PrintedMatter> serialized);
+        private event SaveCatalog SaveAsync;
 
         /// <summary>
         /// Добавить новую книгу
@@ -53,8 +58,10 @@ namespace Library.App.Catalog
             Console.Write("Input author: ");
             string author = Console.ReadLine();
             PrintedMatter newItem = new Book(name, imprintDate, author);
-            list.Add(newItem);
+            _list.AddAsync(newItem);
+            SaveAsync(serial);
         }
+
         /// <summary>
         /// Добавить новый журнал
         /// </summary>
@@ -82,7 +89,8 @@ namespace Library.App.Catalog
                 Console.WriteLine(e.Message);
             }
             PrintedMatter newItem = new Magazine(name, imprintDate, numberOfEdition);
-            list.Add(newItem);
+            _list.AddAsync(newItem);
+            SaveAsync(serial);
         }
         void ChangeItem()
         {
@@ -99,7 +107,7 @@ namespace Library.App.Catalog
             PrintedMatter item = null;
             try
             {
-                item = list.GetElement(number);
+                item = _list.GetElement(number);
             }
             catch (IndexOutOfRangeException)
             {
@@ -110,7 +118,8 @@ namespace Library.App.Catalog
             char choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                list.Update(number, Change(item));
+                _list.Update(number, Change(item));
+                SaveAsync(serial);
             }
             else
                 return;
@@ -122,13 +131,13 @@ namespace Library.App.Catalog
             char choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                item.name = InputName();
+                item.Name = InputName();
             }
             Console.WriteLine("Change imprint date?(y/n)");
             choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                item.imprintDate = InputImprintDate();
+                item.ImprintDate = InputImprintDate();
             }
             if (item is Magazine)
             {
@@ -136,7 +145,7 @@ namespace Library.App.Catalog
                 choose = Console.ReadKey(true).KeyChar;
                 if (Char.ToLower(choose) == 'y')
                 {
-                    ((Magazine)item).numberOfEdition = InputNumberOfEdition();
+                    ((Magazine)item).NumberOfEdition = InputNumberOfEdition();
                 }
             }
             if (item is Book)
@@ -145,11 +154,12 @@ namespace Library.App.Catalog
                 choose = Console.ReadKey(true).KeyChar;
                 if (Char.ToLower(choose) == 'y')
                 {
-                    ((Book)item).author = InputAuthor();
+                    ((Book)item).Author = InputAuthor();
                 }
             }
             return item;
         }
+
         string InputName()
         {
             Console.Write("Input name: ");
@@ -202,14 +212,19 @@ namespace Library.App.Catalog
             catch (FormatException e)
             {
                 Console.WriteLine(e.Message);
+                return;
             }
             try
             {
-                Console.WriteLine(list.GetElement(number).ToString());
+                Console.WriteLine(_list.GetElement(number).ToString());
                 Console.WriteLine("Delete this element?(y/n)");
                 char choose = Console.ReadKey(true).KeyChar;
                 if (Char.ToLower(choose) == 'y')
-                    list.Remove(number);
+                {
+                    _list.RemoveAsync(number);
+                    Console.WriteLine("Element deleted");
+                    SaveAsync(serial);
+                }
             }
             catch (IndexOutOfRangeException e)
             {
@@ -229,7 +244,7 @@ namespace Library.App.Catalog
         {
             try
             {
-                ListSerialization.DoSerialization(list, _fileNameCatalog);
+                Serealized(serial);
                 Console.WriteLine("Catalog saved");
             }
             catch
@@ -237,21 +252,33 @@ namespace Library.App.Catalog
                 Console.WriteLine("Can't save");
             }
         }
-
+        void Serealized(ISerializedAsync<PrintedMatter> serialized)
+        {
+            serialized.SerializedAsync(_list, _fileNameCatalog);
+        }
         /// <summary>
         /// Загрузить каталог
         /// </summary>
-        void LoadList()
+        void LoadList() 
         {
+            _fileNameCatalog = _fm.GetCatalog();
             try
             {
-                list = ListSerialization.DoDeserialization( _fileNameCatalog);
+                DeserializedCatalog(serial);
                 Console.WriteLine("Catalog was loaded");
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 Console.WriteLine("Can't load");
             }
+        }
+
+        void DeserializedCatalog(ISerializedAsync<PrintedMatter> deserialized)
+        {
+            _list = deserialized.Deserialized(_fileNameCatalog);
+            int MaxId = _list.Max(item => item.Id);
+            ID.SetId(MaxId);
         }
 
         /// <summary>
@@ -269,19 +296,21 @@ namespace Library.App.Catalog
             {
                 Console.WriteLine(e.Message);
             }
-            int index = list.IndexOf(id);
-            if (index == -1)
+            Task<int> taskIndex = _list.IndexOfAsync(id);
+            if (taskIndex.Result == -1)
                 Console.WriteLine("Element of the id {0} does not exist", id);
             else
-                Console.WriteLine(list.GetElement(index).ToString());
+                Console.WriteLine(_list.GetElement(taskIndex.Result).ToString());
         }
         /// <summary>
         /// Вывести каталог
         /// </summary>
         void PrintList()
         {
-            foreach (PrintedMatter item in list)
+            foreach(PrintedMatter item in _list)
+            {
                 Console.WriteLine(item.ToString());
+            }
         }
     }
 }

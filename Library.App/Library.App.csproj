@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\FileManager.cs" />
+    <Compile Include="Catalog\ISerializedAsync.cs" />
     <Compile Include="Menu\Cursor.cs" />
     <Compile Include="Menu\InteractiveConsole.cs" />
     <Compile Include="Catalog\ListSerialization.cs" />

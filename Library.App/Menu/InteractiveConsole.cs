@@ -15,21 +15,19 @@ namespace Library.App.Menu
         public InteractiveConsole()
         {
             _pathCurrentMenu = "Catalog.MainMenu";
-            _operation = "operation";
+            _operation = "Load";
             _menuItem = 0;
-            _navigationMenu = new Dictionary<ConsoleKey, Menu>
+            _navigationMenu = new Dictionary<ConsoleKey, Action>
             {
                 { ConsoleKey.DownArrow, this.DownCursor},
                 { ConsoleKey.UpArrow, this.UpCursor},
                 { ConsoleKey.Enter, this.EnterMenuItem},
                 { ConsoleKey.Escape, this.EscapeMenu},
             };
-          
         }
         #region Variables
         // функции для навигации по меню
-        Dictionary<ConsoleKey, Menu> _navigationMenu;
-        delegate void Menu();
+        Dictionary<ConsoleKey, Action> _navigationMenu;
         // верхний левый угол меню  
         const int LEFT = 7;
         const int TOP = 3;
@@ -44,24 +42,28 @@ namespace Library.App.Menu
         string _menu;
         // номер выбраного элемента меню
         int _menuItem;
-        LibraryCatalog libraryCatalog = new LibraryCatalog();
         // объект курсора
         Cursor cursor = Cursor.Create();
         // введеный символ
         ConsoleKey choose;
+        LibraryCatalog libraryCatalog;
         #endregion
         /// <summary>
         /// Запуск консоли
         /// </summary>
         public void Process()
         {
+            libraryCatalog = new LibraryCatalog();
+            libraryCatalog.serial = new ListSerialization();
+            // загрузка каталога
+            libraryCatalog._operationCatalog[_operation]();
             while (true)
             {
                 Console.Clear();
                 Console.CursorVisible = false;
                 // вывод пути
                 PrintLocation();
-                bool performOperation = libraryCatalog.operationCatalog.ContainsKey(_operation) && choose == ConsoleKey.Enter;
+                bool performOperation = libraryCatalog._operationCatalog.ContainsKey(_operation) && choose == ConsoleKey.Enter;
                 if (performOperation)
                     PerformOperation();
                 else
@@ -105,7 +107,7 @@ namespace Library.App.Menu
         {
                 Console.CursorVisible = true;
                 cursor.visible = false;
-                libraryCatalog.operationCatalog[_operation]();
+                libraryCatalog._operationCatalog[_operation]();
                 Console.CursorVisible = false;
         }
         // Вывод меню
@@ -147,8 +149,9 @@ namespace Library.App.Menu
         }
         void PrintFooter(bool performOperation)
         {
-            cursor.SetCursor(Console.WindowHeight - 1, 0);
-            if(performOperation)
+            int height = Math.Max(Console.CursorTop,Console.WindowHeight - 1);
+            cursor.SetCursor(height, 0);
+            if (performOperation)
                 Console.Write(_footerOperation);
             else
                 Console.Write(_footerMenu);
@@ -182,7 +185,7 @@ namespace Library.App.Menu
                 {
                     nextMenu = _menu.Split('\n')[cursor.top - TOP];
                 }
-                catch(IndexOutOfRangeException e)
+                catch(IndexOutOfRangeException)
                 {
                     return;
                 }
